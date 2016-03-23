@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<?php
-include 'DBapi.php';
-?>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -17,9 +15,9 @@ include 'DBapi.php';
           <input type="text" name="usernameBox"> <br>
           Password: <br>
           <input type="password" name="passwordBox"> <br>
-          <input type="submit" value ="Submit" name="submitBtn" onclick="ajaxAuthenticate()">
+          <input type="button" value ="Sign In" name="submitBtn" onclick="ajaxAuthenticate()">
           
-        <input type="button" value="Get Databases" onclick="loadDBList()"> 
+        <input type="button" value="Get Databases" onclick="ajaxGetDB()"> 
         
         <select id ="databaseSel" name="databaseSel">
             
