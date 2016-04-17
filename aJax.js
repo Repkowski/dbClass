@@ -1,19 +1,19 @@
 function ajaxAuthenticate(){
-    var server = $("#serverAddressBox").val();
-    var username = $("#usernameBox").val();
-    var password = $("#passwordBox").val();
-    data = {method: 'authUser', server: server, username: username, password: password}; 
+    var serverIP = $("#serverBox").val();
+    var username = $("#userBox").val();
+    var password = $("#passBox").val();
+    data = {method: 'authUser', server: serverIP, username: username, password: password};
     
     ajaxCall(data, auth);
 }
 
 function auth(data){
-    var val = JSON.parse(data);
+var val = JSON.parse(data);
     if(val['error'] !== null){
         if(val['error'] === 0)
-            //user succesfully authenticated, gets his databases
-            ajaxGetDB($("#serverAddressBox").val(), $("#usernameBox").val(), 
-                        $("#passwordBox").val()); 
+            //user succesfully authenticated, gets databases
+            ajaxGetDB($("#serverBox").val(), $("#userBox").val(), 
+                        $("#passBox").val()); 
     }
 }
 
@@ -37,6 +37,8 @@ function getDB(data){
         });
     }
 }
+
+
 
 
 function ajaxCall(data, method){

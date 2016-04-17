@@ -8,20 +8,21 @@
         <title></title>
     </head>
     <body>
-         
+        <div id="LoginDiv">
           Server Address:<br>
-          <input type="text" name="serverAddressBox" value = "23.253.61.96"> <br>
+          <input type="text" id="serverBox" name="serverBox" value = "23.253.61.96"> <br>
           Username: <br>
-          <input type="text" name="usernameBox"> <br>
+          <input type="text" id="userBox" name="userBox"> <br>
           Password: <br>
-          <input type="password" name="passwordBox"> <br>
+          <input type="password" id="passBox" name="passBox"> <br>
           <input type="button" value ="Sign In" name="submitBtn" onclick="ajaxAuthenticate()">
-          
-        <input type="button" value="Get Databases" onclick="ajaxGetDB()"> 
+        </div>
         
-        <select id ="databaseSel" name="databaseSel">
-            
-        </select>
-         
+        <div id ="sqlQuery">
+            <input type ="text" id="sqlBox" name ="sqlBox" value = "Type Here">
+        </div>
+        
+        <select id ="databaseSel" name="databaseSel"> </select>
+  
     </body>
 </html>
