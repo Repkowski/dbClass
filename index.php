@@ -17,7 +17,8 @@
           Password: <br>
           <input type="password" id="passBox" name="passBox"> <br>
           <input type="button" value ="Sign In" name="submitBtn" onclick="ajaxAuthenticate()">
-           <select id ="databaseSel" name="databaseSel"> </select>
+          <select id ="databaseSel" name="databaseSel" onchange="ajaxGetTables()" onblur="ajaxGetTables()"> </select>
+          <select id="tableSel" name ="tableSel"> </select>
         </div>    
         
 

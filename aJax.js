@@ -1,8 +1,8 @@
 function ajaxAuthenticate(){
-    var serverIP = $("#serverBox").val();
+    var server = $("#serverBox").val();
     var username = $("#userBox").val();
     var password = $("#passBox").val();
-    data = {method: 'authUser', server: serverIP, username: username, password: password};
+    data = {method: 'authUser', server: server, username: username, password: password};
     
     ajaxCall(data, auth);
 }
@@ -38,8 +38,42 @@ function getDB(data){
     }
 }
 
+function ajaxGetTables(){
+    var server = $("#serverBox").val();
+    var username = $("#userBox").val();
+    var password = $("#passBox").val();
+    var db = $("#databaseSel").val();
+    
+    data ={method: 'getTables', server: server, username: username, password: password,
+            db: db};
+    ajaxCall(data, getTableJS);
+}
 
+function getTableJS(data){
+    var val = JSON.parse(data);
+    var tableSelect = $("#tableSel");
+    tableSelect.empty();
+    if (val['error'] === 0){
+        $.each(val['tables'], function(index, value){
+            tableSelect.append($("<option>",{
+                value: value,
+                text: value
+            }));
+        });
+    }
+}
 
+function ajaxQuery(server, username, password){
+    var query = $("#sqlBox").val();
+    data ={method: 'sqlQueryExec', server: server, username: username, 
+        password: password, query: query};
+    ajaxCall(data, execQuery);
+}
+
+function execQuery(data){
+    var val = JSON.parse(data);
+    
+}
 
 function ajaxCall(data, method){
     $.ajax({

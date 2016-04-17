@@ -52,8 +52,49 @@ function getDatabases() {
     }
     return json_encode($result);
 }
+
+function getTables(){
+    $dbConn = connectDb();
+    
+    if($dbConn->connect_error) {
+        $val = $dbConn->connect_error;
+    }
+    else {
+        $val = 0;
+    }
+    
+    $query = "SHOW TABLES IN " . $_POST['db'];
+    $sqlResult = $dbConn->query($query);
+    $dbConn->close();
+    
+    $result = array();
+    $result['error'] = $val;
+    $result['tables'] = array();
+    $j = 0;
+    while( $row = $sqlResult->fetch_array()){
+        $result['tables'][$j] = $row[0];
+        $j++;
+    }
+    return json_encode($result);
+}
+
+function sqlQueryExec(){
+    $dbConn = connectUser();
+    
+    if($dbConn->connect_errno){
+        $val = $dbConn->connect_error;
+    }
+    else{
+        $val = 0;
+    }
+    
+    /*
+     * TO-DO
+     * Acquire the text from the SQL query box and execute that query
+     */
+}
+
 function connectUser() {
-            //Check to see if the proper variables were POSTed
     if(isset($_POST['server'])) {
         $server = sanitize($_POST['server']);
     }
@@ -66,5 +107,42 @@ function connectUser() {
     $dbConn = new mysqli($server, $username, $password);
     
     return $dbConn;
+}
+
+function getUserCreds(){
+    if(isset($_POST['server'])) {
+        $server = sanitize($_POST['server']);
+    }
+    if(isset($_POST['username'])) {
+        $username = sanitize($_POST['username']);
+    }
+    if(isset($_POST['password'])) {
+        $password = sanitize($_POST['password']);
+    }
+    $credArray = array();
+    $credArray[0]= $server;
+    $credArray[1]= $username;
+    $credArray[2]= $password;
+    
+    return $credArray;
+    
+}
+
+function connectDb(){
+   if(isset($_POST['db'])){
+       $database = sanitize($_POST['db']);
+   }
+   
+   $myArray = getUserCreds();
+   reset($myArray); //resets internal pointer, makes sure we have base of array
+   $server = current($myArray); //gets what is at current index of array
+   next($myArray); //increments pointer to next index of array
+   $username = current($myArray);
+   next($myArray);
+   $password = current($myArray);
+   
+   $dbConn = new mysqli($server, $username, $password, $database);
+   
+   return $dbConn;
 }
 ?>
