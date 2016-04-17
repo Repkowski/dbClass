@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <script src="jquery-2.2.1.js" type="text/javascript"></script>
         <script src="aJax.js" type="text/javascript"></script>
+        <link href="wildStyle.css" rel="stylesheet" type="text/css"/>
         <title></title>
     </head>
     <body>
@@ -16,13 +17,14 @@
           Password: <br>
           <input type="password" id="passBox" name="passBox"> <br>
           <input type="button" value ="Sign In" name="submitBtn" onclick="ajaxAuthenticate()">
-        </div>
+           <select id ="databaseSel" name="databaseSel"> </select>
+        </div>    
         
+
+          
         <div id ="sqlQuery">
-            <input type ="text" id="sqlBox" name ="sqlBox" value = "Type Here">
+            <textarea id="sqlBox" name="sqlBox" value ="Type Here" rows ="10" cols="70"></textarea>
         </div>
-        
-        <select id ="databaseSel" name="databaseSel"> </select>
   
     </body>
 </html>
