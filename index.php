@@ -18,14 +18,23 @@
           <input type="password" id="passBox" name="passBox"> <br>
           <input type="button" value ="Sign In" name="submitBtn" onclick="ajaxAuthenticate()">
           <select id ="databaseSel" name="databaseSel" onchange="ajaxGetTables()" onblur="ajaxGetTables()"> </select>
-          <select id="tableSel" name ="tableSel"> </select>
+          <select id="tableSel" name ="tableSel" onchange="getTableSchema" onblur="getTableSchema"> </select>
         </div>    
         
 
           
         <div id ="sqlQuery">
-            <textarea id="sqlBox" name="sqlBox" value ="Type Here" rows ="10" cols="70"></textarea>
+            <textarea id="sqlBox" name="sqlBox" rows ="10" cols="70"></textarea>
         </div>
-  
+        
+        <div id="sqlReturn">
+        
+        </div>
+        
+        <div id="tableDiv">
+            <table id="tableInfo" name ="tableInfo"> </table>
+            <table id="currentTable" name="currentTable"> </table>
+        </div>
+        
     </body>
 </html>
