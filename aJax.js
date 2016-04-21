@@ -1,5 +1,3 @@
-var CurtableData = {}; 
-
 function ajaxAuthenticate(){
     var server = $("#serverBox").val();
     var username = $("#userBox").val();
@@ -79,25 +77,19 @@ function getTableSchema(){
 }
 
 function getTableSchemaSuccess(data){
-    var val = JSON.parse(data);
+    var value = JSON.parse(data);
     var table = $("#tableInfo");
     
-    if(val['error'] === 0){
-        table.empty();
+    table.empty();
     table.append("<tr><th>Field</th><th>Type</th><th>Null</th><th>Key</th><th>Default</th><th>Extra</th></tr>");
-    $.each(val['field'], function(index, val){
-        table.append("<tr><td>" + val['field'][index] + "</td><td>" + val['type'][index] + "</td><td>" + val['null'][index] + "</td><td>");
-        table.append(val['key'][index] + "</td><td>" + val['default'][index] + "</td><td>" + val['extra'][index] + "</td></tr>");
+    $.each(value['field'], function(index, val){
+        table.append("<tr><td>" + value['field'][index] + "</td><td>" + value['type'][index] + "</td><td>" + value['null'][index] + "</td><td>");
+        table.append(value['key'][index] + "</td><td>" + value['default'][index] + "</td><td>" + value['extra'][index] + "</td></tr>");
     });
  
     $("#currentTable").html("");
+   
     
-    
-    CurtableData['primary'] = val['primary'];
-    CurtableData['keyColumn'] = val['keyColumn'];
-    CurtableData['referencedTable'] = val['referencedtable'];
-    CurtableData['referencedColumn'] = val['referencedColumn'];
-    }
 }
 
 function getAllTuples(){
@@ -115,11 +107,10 @@ function getAllTuples(){
 
 function getTuplesSuccess (data){
     var val = JSON.parse(data);
-    var table = $("#tableDiv");
-    table.html("");
-    if (val['error'] === 0){
-        // FILL
-    }
+    var table = $("#currentTable");
+    var schema = $("#tableInfo");
+    schema.html("");
+    table.html(val);
 }
 
 function ajaxQuery(server, username, password){

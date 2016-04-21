@@ -18,7 +18,8 @@
           <input type="password" id="passBox" name="passBox"> <br>
           <input type="button" value ="Sign In" name="submitBtn" onclick="ajaxAuthenticate()">
           <select id ="databaseSel" name="databaseSel" onchange="ajaxGetTables()" onblur="ajaxGetTables()"> </select>
-          <select id="tableSel" name ="tableSel" onchange="getTableSchema" onblur="getTableSchema"> </select>
+          <select id="tableSel" name ="tableSel" onchange="getTableSchema()" onblur="getTableSchema()"> </select>
+          <input type="button" id="displayTable" name ="displayTable" onclick="getAllTuples()" value="Get Tuples"> </button>
         </div>    
         
 
