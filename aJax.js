@@ -113,16 +113,37 @@ function getTuplesSuccess (data){
     table.html(val);
 }
 
-function ajaxQuery(server, username, password){
+function deleteRow(){
+    var server = $("#serverBox").val();
+    var username = $("#userBox").val();
+    var password = $("#passBox").val();
+    var db = $("#databaseSel").val();
+    var table =$("#tableSel").val();
+    $(document).on('click', '.deleteData')
+     data ={method: 'delRow', server: server, username: username, password: password,
+                db: db, table: table};
+            
+    ajaxCall(data, deleteRowSuccess);
+}
+
+function deleteRowSuccess(){
+    //FILL
+}
+
+function ajaxQuery(){
+    var server = $("#serverBox").val();
+    var username = $("#userBox").val();
+    var password = $("#passBox").val();
+    var db = $("#databaseSel").val();
     var query = $("#sqlBox").val();
     data ={method: 'sqlQueryExec', server: server, username: username, 
-        password: password, query: query};
+        password: password, db: db, query: query};
     ajaxCall(data, execQuery);
 }
 
 function execQuery(data){
     var val = JSON.parse(data);
-    
+    //FILL
 }
 
 function ajaxCall(data, method){
@@ -140,4 +161,19 @@ function ajaxCall(data, method){
     });
 }
 
+//May not need this function, if I need it update it for the delete functionality.
+function ajaxCallDelete(data, method){
+    $.ajax({
+        url: 'DBapi.php',
+        data: data,
+        type: 'post',
+        datatype: 'json',
+        success: function(return_value){
+            method(return_value);
+        },
+        error: function(xhr, message){
+            alert("I am Error");
+        }
+    });
+}
 

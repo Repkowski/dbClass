@@ -2,6 +2,8 @@
 
 echo $_POST['method']();
 
+
+
 function sanitize($str, $quotes = ENT_NOQUOTES){
     $str = htmlspecialchars($str, $quotes);
     return $str;
@@ -166,10 +168,16 @@ function getTuples(){
     $dbConn->close();
     
     
+    
+    
     $delim = "\n";
     
     $htmltable =  "<table>" . $delim ;   
-  $counter   = 0 ;
+    $counter   = 0 ;
+    
+    $row = 0;
+    $rowCount = 0;
+   // $deleteButton = '<input type = "button" class="deletedata" data-id="'.$row['id'].'">Del</button>';
   // putting in lines
   while( $row = $sqlResult->fetch_assoc()  ){
     if ( $counter===0 ) {
@@ -184,10 +192,13 @@ function getTuples(){
       // table body
       $htmltable .=   "<tr>"  . $delim ;
       foreach ($row as $key => $value ) {
-          $htmltable .=   "<td>" . $value . "</td>"  . $delim ;
+          $htmltable .=   "<td>" . $value . "</td>";
       }
-      $htmltable .=   "</tr>"   . $delim ;
+      $rowCount++;
+      $deleteButton = '<input type="button" class ="deleteData" data-id="'.$rowCount.'" name ="delButton" onclick="deleteTuple()" value="Delete Tuple '.$rowCount.'"> </button>';
+      $htmltable .= "<td>" . $deleteButton . "</td>" . "</tr>"   . $delim ; // Added a delete button for every row
   }
+  
   // closing table
   $htmltable .=   "</table>"   . $delim ; 
   // return
@@ -196,6 +207,22 @@ function getTuples(){
   return json_encode($result);
 }
 
+function delRow(){
+     $dbConn = connectDb();
+   
+   if($dbConn->connect_error) {
+        $val = $dbConn->connect_error;
+    }
+    else {
+        $val = 0;
+    }
+    
+    $query = "DELETE FROM " . $_POST['table'] . "WHERE ";
+    $sqlResult = $dbConn->query($query);
+    $dbConn->close();
+    
+    
+}
 
 function sqlQueryExec(){
     $dbConn = connectUser();
