@@ -113,21 +113,63 @@ function getTuplesSuccess (data){
     table.html(val);
 }
 
-function deleteRow(){
-    var server = $("#serverBox").val();
-    var username = $("#userBox").val();
-    var password = $("#passBox").val();
-    var db = $("#databaseSel").val();
-    var table =$("#tableSel").val();
-    $(document).on('click', '.deleteData')
-     data ={method: 'delRow', server: server, username: username, password: password,
-                db: db, table: table};
-            
-    ajaxCall(data, deleteRowSuccess);
-}
+//Trying to get delete to work, but soemthing is broken and not allowing it to work.
 
-function deleteRowSuccess(){
-    //FILL
+//$(document).on('click','.deleteData',function(){
+//    var id = $(this).attr('#id'); // Get the clicked id for deletion 
+//    var currentRow = $(this).closest('tr'); // Get a reference to the row that has the button we clicked
+//    var server = $("#serverBox").val();
+//    var username = $("#userBox").val();
+//    var password = $("#passBox").val();
+//    var db = $("#databaseSel").val();
+//    var table =$("#tableSel").val();
+//    $.ajax({
+//        type:'post',
+//        url:'DBapi.php', // sending the request to the same page we're on right now
+//        data :{method: 'delRow', server: server, username: username, password: password,
+//                db: db, table: table, rowId: id, currentRow: currentRow },
+//        success:function(response){
+//            if (response == 'ok') {
+//                // Hide the row nicely and remove it from the DOM once the animation is finished.
+//                currentRow.slideUp(500,function(){
+//                    currentRow.remove();
+//                })
+//            } else {
+//                // throw an error modally to let the user know there was an error
+//            }
+//        }
+//    })
+//})
+
+//function deleteRow(){
+//    var server = $("#serverBox").val();
+//    var username = $("#userBox").val();
+//    var password = $("#passBox").val();
+//    var db = $("#databaseSel").val();
+//    var table =$("#tableSel").val();
+//    var currentRow, id;
+//    
+//    $(document).on('click','.deletedata',function(){
+//    var myid = $(this).attr('data-id'); // Get the clicked id for deletion 
+//    var mycurrentRow = $(this).closest('tr'); // Get a reference to the row that has the button we clicked
+//    id = myid;
+//    currentRow = mycurrentRow;
+//    return id, currentRow;
+//    });
+//        
+//     data ={method: 'delRow', server: server, username: username, password: password,
+//                db: db, table: table, rowId: id, currentRow: currentRow };
+//            
+//    ajaxCall(data, deleteRowSuccess);
+//}
+
+function deleteRowSuccess(data){
+   var val = JSON.parse(data);
+   var currentRow = val["currentRow"];
+   currentRow.slideUp(500,function(){
+       currentRow.remove();
+   });
+   
 }
 
 function ajaxQuery(){
