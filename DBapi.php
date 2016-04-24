@@ -65,11 +65,7 @@ function getTables(){
         $val = 0;
     }
     
-    if(isset($_POST['db'])) {
-        $db = sanitize($_POST['db']);
-    }
-    
-    $query = "SHOW TABLES IN " . $db;
+    $query = "SHOW TABLES IN " . $_POST['db'];
     $sqlResult = $dbConn->query($query);
     $dbConn->close();
     
@@ -167,11 +163,7 @@ function getTuples(){
         $val = 0;
     }
     
-    if(isset($_POST['table'])) {
-        $table = sanitize($_POST['table']);
-    }
-    
-    $query = "SELECT * FROM " . $table;
+    $query = "SELECT * FROM " . $_POST['table'];
     $sqlResult = $dbConn->query($query);
     $dbConn->close();
     
@@ -203,7 +195,7 @@ function getTuples(){
           $htmltable .=   "<td>" . $value . "</td>";
       }
       $rowCount++;
-      $deleteButton = '<input type="button" class ="deleteData" id="'.$rowCount.'" data-id="'.$rowCount.'" name ="delButton" value="Delete Tuple '.$rowCount.'"> </button>';
+      $deleteButton = '<input type="button" class ="deleteData" data-id="'.$rowCount.'" name ="delButton" onclick="deleteTuple()" value="Delete Tuple '.$rowCount.'"> </button>';
       $htmltable .= "<td>" . $deleteButton . "</td>" . "</tr>"   . $delim ; // Added a delete button for every row
   }
   
@@ -217,13 +209,6 @@ function getTuples(){
 
 function delRow(){
      $dbConn = connectDb();
-    if(isset($_POST['table'])) {
-        $table = sanitize($_POST['table']);
-    }
-    
-    if(isset($_POST['rowId'])) {
-        $id = sanitize($_POST['rowId']);
-    }
    
    if($dbConn->connect_error) {
         $val = $dbConn->connect_error;
@@ -232,9 +217,11 @@ function delRow(){
         $val = 0;
     }
     
-    $query = "DELETE FROM " . $table . "WHERE id=" . $id;
+    $query = "DELETE FROM " . $_POST['table'] . "WHERE ";
     $sqlResult = $dbConn->query($query);
-    $dbConn->close();   
+    $dbConn->close();
+    
+    
 }
 
 function sqlQueryExec(){
